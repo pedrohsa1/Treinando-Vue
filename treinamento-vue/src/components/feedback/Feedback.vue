@@ -3,10 +3,9 @@
             {{ message }}
             <template v-slot:action="{ attrs }">
                 <v-btn  text
-                        :color="pink"  
                         v-bind="attrs" 
                         @click="showMessage = false">
-                    Close
+                    Fechar
                 </v-btn>
             </template>
         </v-snackbar>
