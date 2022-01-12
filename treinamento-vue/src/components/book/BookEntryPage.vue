@@ -43,7 +43,7 @@
                      v-if="book.volumeInfo.previewLink">
                     <v-subheader>Categorias</v-subheader>
                     <v-divider class="mb-2"></v-divider>
-                    <v-btn text color="primary" @click="goToPreview">
+                    <v-btn text color="primary" @click="goToPreview(book)">
                         Preview
                     </v-btn>
                 </div>
@@ -54,11 +54,13 @@
 </template>
 
 <script>
+import bookServices from './bookServices'
 
 const axios = require('axios');
 
 export default {
     name: "BookEntryPage",
+    mixins: [bookServices], //os mixins é um array
     data(){
         return {
             book: {}
@@ -76,9 +78,7 @@ export default {
         goBack() {
             this.$router.push("/book");
         },
-        goToPreview() {
-            window.open(this.book.volumeInfo.previewLink, '_blank');
-        }
+        
     }
 }
 </script>

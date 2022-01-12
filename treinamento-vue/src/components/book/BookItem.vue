@@ -19,14 +19,17 @@
 
         <v-card-actions>
             <v-btn text small color="primary" @click="goToDetails">Detalhes</v-btn>
-            <v-btn text small color="primary" @click="goToPreview">Preview</v-btn>
+            <v-btn text small color="primary" @click="goToPreview(book)">Preview</v-btn>
         </v-card-actions>
     </v-card>
 </template>
 
 <script>
+import bookServices from './bookServices';
+
 export default {
     name: "BookItem",
+    mixins: [bookServices],
     props: {
         book: {type: Object, required: true},
     },
@@ -38,9 +41,6 @@ export default {
     methods: {
         goToDetails() {
             this.$router.push('/book/' + this.book.id);
-        },
-        goToPreview() {
-            window.open(this.book.volumeInfo.previewLink, '_blank');
         }
     }
 }
