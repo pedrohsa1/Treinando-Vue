@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import api from "../api/api";
 import Loading from '../loading/Loading.vue';
 import BookItem from './BookItem.vue';
 
@@ -32,7 +33,8 @@ const axios = require('axios');
 
 export default {
     name:'BookList',
-        data() {
+    mixins: [api],
+    data() {
         return {
           bookList: [],
           textSearch: "",
@@ -52,7 +54,7 @@ export default {
         doSearch(){
             if(this.textSearch){
                 this.searchOnGoing = true;
-                axios.get("https://www.googleapis.com/books/v1/volumes?q=" + this.textSearch).then(
+                this.get(baseUrl + "/volumes?q=" + this.textSearch).then(
                     (response) => {
                         console.log(this.bookList);
                         this.bookList = response.data.items;
