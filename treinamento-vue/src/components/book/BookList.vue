@@ -3,13 +3,13 @@
     <div>
         <v-row>
             <v-col cols="12">
-                <v-text-field @input="doSearch" v-model="textSearch" label="Pesquise por um livro"/>
+                <search-input-field @search="doSearch"/>
             </v-col>
         </v-row>
 
-        <v-row justify="center"> 
+        <v-row justify="center" v-if="!bookList.length" > 
             <v-col cols="12" md="4" class="text-center">
-                <p  v-if="!textSearch" class="overLine">Digite algo para iniciar a pesquisa.</p>
+                <p class="overline">Digite algo para iniciar a pesquisa.</p>
             </v-col>
         </v-row>
 
@@ -27,6 +27,7 @@
 <script>
 import api from "../api/api";
 import Loading from '../loading/Loading.vue';
+import SearchInputField from '../search/SearchInputField.vue';
 import BookItem from './BookItem.vue';
 
 export default {
@@ -35,16 +36,16 @@ export default {
     data() {
         return {
           bookList: [],
-          textSearch: "",
           searchOnGoing: false
         };
     },
-    components: {Loading, BookItem},
+    components: {Loading, SearchInputField, BookItem},
     methods: {
-        doSearch(){
-            if(this.textSearch){
+        doSearch(textSearch){
+            if(textSearch){
                 this.searchOnGoing = true;
-                this.get("/volumes?q=" + this.textSearch).then(
+
+                this.get("/volumes?q=" + textSearch).then(
                     (response) => {
                         console.log(this.bookList);
                         this.bookList = response.data.items;
