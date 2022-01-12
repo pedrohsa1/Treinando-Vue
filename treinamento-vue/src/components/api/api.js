@@ -1,6 +1,6 @@
 const axios = require("axios");
 const axiosInstance = axios.create({
-    baseUrl = "https://www.googleapis.com/books/v1",
+    baseURL: "https://www.googleapis.com/books/v1",
 });
 
 export default {

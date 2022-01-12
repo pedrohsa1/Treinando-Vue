@@ -29,8 +29,6 @@ import api from "../api/api";
 import Loading from '../loading/Loading.vue';
 import BookItem from './BookItem.vue';
 
-const axios = require('axios');
-
 export default {
     name:'BookList',
     mixins: [api],
@@ -42,19 +40,11 @@ export default {
         };
     },
     components: {Loading, BookItem},
-    /*created() {
-        axios.get('https://www.googleapis.com/books/v1/volumes?q=flowers').then(
-            (response) => {
-                console.log(this.bookList);
-                this.bookList = response.data.items;
-            }
-        );
-    },*/
     methods: {
         doSearch(){
             if(this.textSearch){
                 this.searchOnGoing = true;
-                this.get(baseUrl + "/volumes?q=" + this.textSearch).then(
+                this.get("/volumes?q=" + this.textSearch).then(
                     (response) => {
                         console.log(this.bookList);
                         this.bookList = response.data.items;

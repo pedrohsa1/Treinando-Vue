@@ -66,7 +66,7 @@ export default {
         }
     },
     created(){
-        this.get("https://www.googleapis.com/books/v1/volumes/" + this.$route.params.id).then(
+        this.get("/volumes/" + this.$route.params.id).then(
             (response) => {
                 this.book = response.data;
                 console.log(this.book);
