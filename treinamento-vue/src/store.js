@@ -4,33 +4,39 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state:{
+    state: {
+        authToken: '',
+        userId: '',
         logged: false,
-        authToken: "",
         message: {
-            text: "",
-            type: ""
+            text: '',
+            type: '',
         },
     },
-    mutations:{
-        setLogged(state,payload){
+    mutations: {
+        setAuthToken(state, payload) {
+            window.localStorage.authToken = payload;
+            state.authToken = payload;
+            state.logged = Boolean(state.authToken);
+        },
+        setUserId(state, payload) {
+            window.localStorage.userId = payload;
+            state.userId = payload;
+        },
+        setLogged(state, payload) {
             state.logged = payload;
         },
-        setAuthToken(state, payload){
-            state.authToken = payload;
-        },
-        showErrorMessage(state, payload){
+        showErrorMessage(state, payload) {
             state.message = {
                 text: payload,
-                type: 'ERROR'
-            }
+                type: 'ERROR',
+            };
         },
-        showSuccessMessage(state, payload){
+        showSuccessMessage(state, payload) {
             state.message = {
                 text: payload,
-                type: 'SUCCESS'
-            }
+                type: 'SUCCESS',
+            };
         },
     },
 });
-

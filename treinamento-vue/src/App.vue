@@ -1,22 +1,31 @@
 <template>
-  <v-app>
+    <v-app>
+        <app-header />
 
-    <app-header/>
-    <v-main>
-        <router-view />
-    </v-main>
-    
-    <feedback/>
+        <v-main>
+            <router-view />
+        </v-main>
 
-  </v-app>
+        <feedback />
+    </v-app>
 </template>
 
 <script>
-import AppHeader from './components/header/AppHeader.vue'
-import Feedback from './components/feedback/Feedback.vue'
-
-export default {
-  name: 'App',
-  components:{Feedback, AppHeader},
-};
+    import apiConfig from './components/api/apiConfig';
+    import AppHeader from './components/header/AppHeader.vue';
+    import Feedback from './components/feedback/Feedback.vue';
+    export default {
+        name: 'App',
+        components: { AppHeader, Feedback },
+        mixins: [apiConfig],
+        created() {
+            this.createInterceptors();
+            if (window.localStorage.authToken && window.localStorage.userId) {
+                this.$store.commit('setAuthToken', window.localStorage.authToken);
+                this.$store.commit('setUserId', window.localStorage.userId);
+            } else {
+                this.$router.push('/');
+            }
+        },
+    };
 </script>

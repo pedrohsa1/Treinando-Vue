@@ -10,7 +10,7 @@
             <v-btn text @click="goToBookList">
                 Livros
             </v-btn>
-            <v-btn text @click="goToCollections">
+            <v-btn v-if="$store.state.authToken" text @click="goToCollections">
                 Minha Coleção
             </v-btn>
             <v-btn text @click="logout">
@@ -30,11 +30,11 @@ export default {
             this.$router.push('/book');
         },
         goToCollections() {
-            this.$router.push('/collection');
+            this.$router.push('/library');
         },
         logout() {
+            window.localStorage.authToken = "";
             this.$store.commit("setAuthToken", "");
-            this.$store.commit("setLogged", false);
             this.$router.push("/");
         },
     }
